@@ -48,6 +48,7 @@ const originData = [
 ]
 
 const getNewTreeData = (data, vm) => {
+    // * 初始化title节点
     return data.map(item => {
         item.title = (props) => (<Title
             title={vm.state.titleObj[props.key]}
@@ -69,6 +70,7 @@ class TestTree extends React.Component {
     };
 
     componentDidMount() {
+        // * 初始化数据
         this.setState({
             treeData: getNewTreeData(originData, this),
             titleObj: this.getNewTitleObj(this, originData)
@@ -78,11 +80,13 @@ class TestTree extends React.Component {
     }
 
     handleTitleChange = (key, e) => {
+        // * 子组件中触发更新title
         this.state.titleObj[key] = e.target.value;
         this.forceUpdate();
     }
 
     getNewTitleObj(vm, treeData, newVal = {}) {
+        // * 初始化title对象
         treeData.forEach(item => {
             newVal[item.key] = item.key;
             if (item.children && Array.isArray(item.children)) {
