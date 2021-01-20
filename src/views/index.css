@@ -1,0 +1,7 @@
+.tree-node {
+    width: 300px;
+    border: 1px solid;
+}
+.ant-tree.tree-node {
+    margin: 0 auto;
+}
