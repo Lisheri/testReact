@@ -69,3 +69,48 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
 # 冲冲冲
+
+## eventBus
+```
+class EventBus {
+    constructor() {
+        this.events = this.events || new Object();
+    }
+    $emit(type, ...args) {
+        let e;
+        e = this.events[type];
+        // 查看这个type的event有多少个回调函数，如果有多个需要依次调用。
+        if (Array.isArray(e)) {
+            for (let i = 0; i < e.length; i++) {
+                e[i].apply(this, args);
+            }
+        } else {
+            e[0].apply(this, args);
+        }
+    }
+    $on(type, fun) {
+        const e = this.events[type];
+
+        if (!e) {   //如果从未注册过监听函数，则将函数放入数组存入对应的键名下
+            this.events[type] = [fun];
+        } else {  //如果注册过，则直接放入
+            e.push(fun);
+        }
+    }
+}
+const eventBus = new EventBus();
+export default eventBus;
+```
+
+### 生命周期
++ componentWillMount 组件将要挂载
+    - 可以进行api调用，可以获取数据，但是dom没有挂载，获取不到dom
++ componentDidMount 组件已经挂载
+    - 组件已经挂载，可以对状态更新操作，可以操作dom
++ componentWillReceiveProps 父组件传递的属性有变化，做相应响应
+    - 父组件传递的props发生变化时调用
++ shouldComponentUpdate 组件是否需要更新, 传递boolean值, 优化点
+    - 组件是否需要更新，需要返回一个boolean，返回false则不更新
++ componentWillUpdate 组件将要更新
++ componentDidUpdate 组件已经更新
++ componentWillUnmount 组件已经销毁
