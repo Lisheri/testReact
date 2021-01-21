@@ -1,11 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import TestTree from './views/testTree'
+import Slot from './views/slots/slot'
+import Hoc from './views/hoc'
+import Hooks from './views/hooks'
 
 function App() {
   return (
     <div className="App">
-      <TestTree/>
+      <TestTree />
+      <Slot />
+      <Hoc me="我是高阶组件体验人"/>
+      <Hooks />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
